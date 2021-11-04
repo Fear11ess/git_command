@@ -1,0 +1,43 @@
+//配置用户名和邮箱
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+
+//将目录变为Git可以管理的仓库
+$ git init
+
+//将文件从工作区添加进暂存区
+$ git add （filename）	
+//将当前目录下的所有文件添加到暂存区
+$ git add .
+
+//将所有文件从暂存区提交到仓库
+$ git commit -m （"message"）
+
+//查看工作区状态，是否有修改
+$ git status
+//查看修改内容
+$ git diff (filename)
+
+//显示从近到远的提交日志
+$ git log
+//退回到某个版本
+$ git reset --hard (HEAD*)	上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100
+$ git reset --hard (commit.id)	只需要找到该版本前几位id就行，但也不能只写一两位
+//查看未来命令，以便确定要回到未来哪个版本
+$ git reflog
+
+GIT管理的是修改，而不是文件
+如果修改1->git add->修改2->git commit，则只有修改1会被提交到仓库
+此情况可以再git add再git commit将修改2提交，或者完整操作修改1->git add->修改2->git add->git commit
+
+撤销修改：
+1.修改了工作区，想丢弃工作区修改 $ git checkout -- (filename)
+2.添加到了暂存区	（1）git reset HEAD (filename) (2)$ git checkout -- (filename)
+3：已经提交了不合适的修改到版本库时，想要撤销本次提交，版本回退，不过前提是没有推送到远程库。
+
+删除文件：
+$ git rm test.txt
+$ git commit -m "remove file"
+
+删错了：
+$ git checkout -- filename 你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容。
